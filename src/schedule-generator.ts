@@ -12,6 +12,7 @@ class ScheduleEvent {
 let testEvents:ScheduleEvent[] = [];
 let e = new ScheduleEvent(20, 30, 'section 310', 'Math course');
 testEvents.push(e);
+console.log("this is a test");
 console.log(testEvents);
 console.log(e.startTime);
 console.log(e.endTime);
