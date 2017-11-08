@@ -1,2 +1,2 @@
 # ScheduleGenerator
-Schedule generator software built in JS
+Schedule generator software built in TypeScript
