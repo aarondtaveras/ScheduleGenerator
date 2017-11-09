@@ -1,6 +1,6 @@
 export class Test {
     testVar:string;
     constructor(){
-        this.testVar = "hi";
+        this.testVar = "the test class has been changed";
     }
 }
