@@ -11,7 +11,7 @@ var paths = {
 var watchedBrowserify = watchify(browserify({
     basedir: '.',
     debug: true,
-    entries: ['src/schedulegenerator.ts'],
+    entries: ['src/schedule-generator.ts'],
     cache: {},
     packageCache: {}
 }).plugin(tsify));
@@ -24,7 +24,7 @@ gulp.task("copy-html", function () {
 function bundle() {
     return watchedBrowserify
         .bundle()
-        .pipe(source('schedulegenerator.js'))
+        .pipe(source('bundle.js'))
         .pipe(gulp.dest("dist"));
 }
 

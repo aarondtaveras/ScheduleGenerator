@@ -1,4 +1,4 @@
-import {ScheduleEvent} from './datamodels/scheduleevent';
+import {ScheduleEvent} from './datamodels/schedule-event';
 
 let testEvents:ScheduleEvent[] = [];
 let testEvents2:ScheduleEvent[] = [];
