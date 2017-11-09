@@ -1,4 +1,5 @@
 console.log("scheduler-generator");
+import {Test} from './test';
 //later we will make a datamodels folder for these classes
 //that only contain data.
 class ScheduleEvent {
@@ -16,3 +17,6 @@ console.log("this is a test");
 console.log(testEvents);
 console.log(e.startTime);
 console.log(e.endTime);
+
+let t = new Test();
+console.log(t);
