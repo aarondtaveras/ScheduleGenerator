@@ -3,10 +3,10 @@ import {testGenerateDictionary} from './tests/test-generate-dictionary'
 
 let testEvents:ScheduleEvent[] = [];
 let testEvents2:ScheduleEvent[] = [];
-let e = new ScheduleEvent(20, 30, 'section 310', 'Math course');
-let e3 = new ScheduleEvent(40,50,'section 250','Math course');
-let e4 = new ScheduleEvent(10,20,'section 290','English course')
-let e2 = new ScheduleEvent(30, 30, 'section 310', 'Math course');
+let e = new ScheduleEvent(20, 30,false, 'section 310', 'Math course');
+let e3 = new ScheduleEvent(40,50,false,'section 250','Math course');
+let e4 = new ScheduleEvent(10,20,false,'section 290','English course')
+let e2 = new ScheduleEvent(30, 30,false, 'section 310', 'Math course');
 testEvents.push(e);
 testEvents2.push(e);
 testEvents.push(e2);

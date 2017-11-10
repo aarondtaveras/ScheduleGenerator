@@ -12,15 +12,15 @@ export function testGenerateDictionary(){
     let g3:string = 'Science course';
    for(let i:number = 0;i<20;i++){
     if(i>=0 && i<5){
-    let e = new ScheduleEvent(i,i,'section' + i,g1);
+    let e = new ScheduleEvent(i,i,false,'section' + i,g1);
     testSchedule.push(e);
     }
     else if(i>=5 && i<=12){
-    let e = new ScheduleEvent(i,i,'section' + i,g2);
+    let e = new ScheduleEvent(i,i,false,'section' + i,g2);
     testSchedule.push(e);
     }
     else{
-    let e = new ScheduleEvent(i,i,'section' + i,g3);
+    let e = new ScheduleEvent(i,i,false,'section' + i,g3);
     testSchedule.push(e);
     }
    }
