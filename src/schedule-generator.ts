@@ -1,5 +1,5 @@
 import {ScheduleEvent} from './datamodels/schedule-event';
-import {testGenerateDictionary} from './tests/test-generate-dictionary'
+import {runTests} from './tests/test-generate-dictionary'
 
 let testEvents:ScheduleEvent[] = [];
 let testEvents2:ScheduleEvent[] = [];
@@ -16,19 +16,28 @@ testEvents2[0].eventName = "happy";
 
 var dictionary = {};
 
-console.log(testEvents);
-console.log(testEvents2);
+//console.log(testEvents);
+//console.log(testEvents2);
 
 export function generateDictionary(schedule:ScheduleEvent[]){
-for(let i:number=0;i<schedule.length;i++){
-    if(!dictionary[schedule[i].eventGroup]){
-        dictionary[schedule[i].eventGroup] = [schedule[i]];
-    } else {
-        dictionary[schedule[i].eventGroup].push(schedule[i]);
+    for(let i:number=0;i<schedule.length;i++){
+        if(!dictionary[schedule[i].eventGroup]){
+            dictionary[schedule[i].eventGroup] = [schedule[i]];
+        } else {
+            dictionary[schedule[i].eventGroup].push(schedule[i]);
+        }
     }
-    
-}
-    console.log(dictionary);
+    return dictionary;
 }
 
-testGenerateDictionary();
+export function generatePossibleSchedules(eventsByGroup:{}){
+    let eventGroups:string[] = Object.keys(eventsByGroup);
+    let schedules = [];
+    eventGroups.forEach(function(eventGroup, index){
+        let groupEvents:string[] = eventsByGroup[eventGroup];
+        
+
+    });
+}
+
+runTests();
