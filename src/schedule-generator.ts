@@ -49,13 +49,16 @@ export function generateSchedules(eventsByGroup:{}, startIndex=0):ScheduleEvent[
     let schedules:ScheduleEvent[][];
 
     if(startIndex === eventGroups.length-1){
-        return currentGroupEvents.map(function(event:ScheduleEvent):ScheduleEvent[]{
+        return currentGroupEvents.map(function(event:ScheduleEvent)
+        :ScheduleEvent[]{
             return [event];
         })
     }
 
-    schedules = currentGroupEvents.reduce(function(schedules:ScheduleEvent[][], event:ScheduleEvent):any{
-        let nextSchedules:ScheduleEvent[][] = generateSchedules(eventsByGroup, startIndex+1);
+    schedules = currentGroupEvents.reduce(function(schedules:ScheduleEvent[][],
+                                                   event:ScheduleEvent):any{
+        let nextSchedules:ScheduleEvent[][] = generateSchedules(eventsByGroup,
+                                                                startIndex+1);
         let schedulesWithCurrentEvent:ScheduleEvent[][] = nextSchedules.map(
             function(schedule:ScheduleEvent[]):any{
                 schedule.push(event);
