@@ -69,18 +69,20 @@ export function generateSchedules(eventsByGroup:{}, startIndex=0):ScheduleEvent[
     return schedules;
 }
 
-function hasSchedConflict(schedule:ScheduleEvent[]) {
-    let hasConflict:boolean = false;
+export function fltrSchedConflicts(schedule:ScheduleEvent[]) {
     schedule.forEach(function(event1:ScheduleEvent) {
         schedule.forEach(function(event2:ScheduleEvent) {
             if (!(event1 === event2)){
-                
+                if(hasConflict(event1, event2)){
+                    return true;
+                }
             }
         })
     });
+    return false;
 }
 
-export function hasConflict(event1:ScheduleEvent, event2:ScheduleEvent) {
+export function hasConflict(event1:ScheduleEvent, event2:ScheduleEvent):boolean {
     let hasConflict:boolean;
     hasConflict = event1.startTime <= event2.endTime;
     hasConflict = hasConflict && event1.endTime >= event2.startTime;

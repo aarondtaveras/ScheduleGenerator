@@ -2,6 +2,9 @@ import * as _ from "lodash";
 
 export class TestRunner {
     static runTests(testFuncs, expectedOutputs):boolean[] {
+        /*  takes array of test functions and array of
+            expected outputs. Checks if they match.
+            returns array of boolean results of each test.*/
         if (testFuncs.length != expectedOutputs.length) {
             throw "Test functions do not match expected outputs";
         }
