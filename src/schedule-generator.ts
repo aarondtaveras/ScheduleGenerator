@@ -30,6 +30,7 @@ function getPropCounts(dic):number[]{
 
 /* schedule specific */
 export function generateDictionary(schedule:ScheduleEvent[]){
+    let dictionary:{} = {};
     for(let i:number=0;i<schedule.length;i++){
         if(!dictionary[schedule[i].eventGroup]){
             dictionary[schedule[i].eventGroup] = [schedule[i]];
@@ -49,13 +50,12 @@ export function generateSchedules(eventsByGroup:{}, startIndex=0):ScheduleEvent[
 
     if(startIndex === eventGroups.length-1){
         return currentGroupEvents.map(function(event:ScheduleEvent):ScheduleEvent[]{
-            return [_.cloneDeep(event)];
+            return [event];
         })
     }
 
     currentGroupEvents.forEach(function(event:ScheduleEvent){
         let nextSchedules:ScheduleEvent[][] = generateSchedules(eventsByGroup, startIndex+1);
-        //console.log(nextSchedules);
         let schedulesWithCurrentEvent:ScheduleEvent[][] = nextSchedules.map(
             function(schedule:ScheduleEvent[]):any{
                 schedule.push(event);
@@ -66,11 +66,5 @@ export function generateSchedules(eventsByGroup:{}, startIndex=0):ScheduleEvent[
     return schedules;
 }
 
-function addEventToSchedule(event:ScheduleEvent, schedules:ScheduleEvent[]){
-    schedules.push(event);
 
-}
-
-
-
-runTests();
+console.log(runTests());

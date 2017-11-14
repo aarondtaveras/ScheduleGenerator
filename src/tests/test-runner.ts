@@ -1,3 +1,5 @@
+import * as _ from "lodash";
+
 export class TestRunner {
     static runTests(testFuncs, expectedOutputs):boolean[] {
         if (testFuncs.length != expectedOutputs.length) {
@@ -16,22 +18,17 @@ export class TestRunner {
             if (expectedOutput == null) {
                 return true;
             } else {
-                testPassed = true//isEqual(testOutput, expectedOutputs[index]);
+                testPassed = JSON.stringify(testOutput) === JSON.stringify(expectedOutput);
+                if(!testPassed){
+                    console.log("Test Failed for "+ testFunc.name);
+                    console.log("test output doesn't match expected output: ")
+                    console.log("test output:");
+                    console.log(testOutput);
+                    console.log("expected output:");
+                    console.log(expectedOutput);
+                }
                 return testPassed;
             }
         });
     }
 }
-/*
-function isEqual(obj1, obj2){
-    for (let i in obj1) {
-        try{
-            if (obj1[i] !== obj2[i] || ! isEqual(obj1[i], obj2[i])){
-                return false;
-            }
-        } catch {
-            return false;
-        }
-    }
-    return true;
-}*/

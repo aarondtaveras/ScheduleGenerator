@@ -1,7 +1,8 @@
 import {ScheduleEvent} from '../datamodels/schedule-event';
 import {generateDictionary, generateSchedules} from '../schedule-generator';
 import { TestRunner } from './test-runner';
-import { testScheduleByEventGroupNames } from './test-data';
+import { testScheduleByEventGroupNames, testGenerateSchedulesExpected,
+         genTestSchedule} from './test-data';
 
 
 function testGenerateDictionary():object{
@@ -27,10 +28,9 @@ function testGenerateDictionary():object{
 }
 
 function testGeneratePossibleSchedules(){
-    let testDic = testGenerateDictionary();
-    console.log(testDic);
-    console.log("generated:");
-    console.log(generateSchedules(testDic));
+    let schedule:ScheduleEvent[] = genTestSchedule();
+    let testDic = generateDictionary(schedule);
+    return generateSchedules(testDic);
 }
 
 export function runTests(){
@@ -45,7 +45,8 @@ export function runTests(){
 
     //testGeneratePossibilities
     testFuncs.push(testGeneratePossibleSchedules);
-    expectedOutputs.push(null);
+    expectedOutputs.push(testGenerateSchedulesExpected);
     
-    TestRunner.runTests(testFuncs, expectedOutputs);
+    let testOutcomes:boolean[] = TestRunner.runTests(testFuncs, expectedOutputs);
+    return testOutcomes;
 }
