@@ -1,5 +1,5 @@
 import {ScheduleEvent} from '../datamodels/schedule-event';
-import {generateDictionary, generatePossibleSchedules} from '../schedule-generator';
+import {generateDictionary, generateSchedules} from '../schedule-generator';
 import { TestRunner } from './test-runner';
 import { testScheduleByEventGroupNames } from './test-data';
 
@@ -28,8 +28,9 @@ function testGenerateDictionary():object{
 
 function testGeneratePossibleSchedules(){
     let testDic = testGenerateDictionary();
-    //console.log(testDic);
-    console.log('hi');
+    console.log(testDic);
+    console.log("generated:");
+    console.log(generateSchedules(testDic));
 }
 
 export function runTests(){

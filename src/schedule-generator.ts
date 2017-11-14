@@ -1,5 +1,6 @@
 import {ScheduleEvent} from './datamodels/schedule-event';
 import {runTests} from './tests/test-generate-dictionary'
+import * as _ from "lodash";
 
 let testEvents:ScheduleEvent[] = [];
 let testEvents2:ScheduleEvent[] = [];
@@ -16,9 +17,18 @@ testEvents2[0].eventName = "happy";
 
 var dictionary = {};
 
-//console.log(testEvents);
-//console.log(testEvents2);
+/* utility functions */
+function getPropCounts(dic):number[]{
+    /*  takes object returns array of
+        lengths of properties */
+    let dicKeys:string[] = Object.keys(dic);
+    let dicCounts = dicKeys.map(function(key):number{
+        return dic[key].length;
+    })
+    return dicCounts;
+}
 
+/* schedule specific */
 export function generateDictionary(schedule:ScheduleEvent[]){
     for(let i:number=0;i<schedule.length;i++){
         if(!dictionary[schedule[i].eventGroup]){
@@ -30,14 +40,37 @@ export function generateDictionary(schedule:ScheduleEvent[]){
     return dictionary;
 }
 
-export function generatePossibleSchedules(eventsByGroup:{}){
+/* Entry point for generating schedules */
+export function generateSchedules(eventsByGroup:{}, startIndex=0):ScheduleEvent[][]{
     let eventGroups:string[] = Object.keys(eventsByGroup);
-    let schedules = [];
-    eventGroups.forEach(function(eventGroup, index){
-        let groupEvents:string[] = eventsByGroup[eventGroup];
-        
+    let currentGroup:string = eventGroups[startIndex];
+    let currentGroupEvents:ScheduleEvent[] = eventsByGroup[currentGroup];
+    let schedules:ScheduleEvent[][] = [];
 
-    });
+    if(startIndex === eventGroups.length-1){
+        return currentGroupEvents.map(function(event:ScheduleEvent):ScheduleEvent[]{
+            return [_.cloneDeep(event)];
+        })
+    }
+
+    currentGroupEvents.forEach(function(event:ScheduleEvent){
+        let nextSchedules:ScheduleEvent[][] = generateSchedules(eventsByGroup, startIndex+1);
+        //console.log(nextSchedules);
+        let schedulesWithCurrentEvent:ScheduleEvent[][] = nextSchedules.map(
+            function(schedule:ScheduleEvent[]):any{
+                schedule.push(event);
+                return schedule;
+            });
+        schedules = schedules.concat(schedulesWithCurrentEvent);
+    })
+    return schedules;
 }
+
+function addEventToSchedule(event:ScheduleEvent, schedules:ScheduleEvent[]){
+    schedules.push(event);
+
+}
+
+
 
 runTests();
