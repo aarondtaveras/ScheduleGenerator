@@ -46,7 +46,7 @@ export function generateSchedules(eventsByGroup:{}, startIndex=0):ScheduleEvent[
     let eventGroups:string[] = Object.keys(eventsByGroup);
     let currentGroup:string = eventGroups[startIndex];
     let currentGroupEvents:ScheduleEvent[] = eventsByGroup[currentGroup];
-    let schedules:ScheduleEvent[][] = [];
+    let schedules:ScheduleEvent[][];
 
     if(startIndex === eventGroups.length-1){
         return currentGroupEvents.map(function(event:ScheduleEvent):ScheduleEvent[]{
@@ -54,15 +54,15 @@ export function generateSchedules(eventsByGroup:{}, startIndex=0):ScheduleEvent[
         })
     }
 
-    currentGroupEvents.forEach(function(event:ScheduleEvent){
+    schedules = currentGroupEvents.reduce(function(schedules:ScheduleEvent[][], event:ScheduleEvent):any{
         let nextSchedules:ScheduleEvent[][] = generateSchedules(eventsByGroup, startIndex+1);
         let schedulesWithCurrentEvent:ScheduleEvent[][] = nextSchedules.map(
             function(schedule:ScheduleEvent[]):any{
                 schedule.push(event);
                 return schedule;
             });
-        schedules = schedules.concat(schedulesWithCurrentEvent);
-    })
+        return schedules.concat(schedulesWithCurrentEvent);
+    }, [])
     return schedules;
 }
 
