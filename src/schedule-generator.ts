@@ -56,7 +56,7 @@ export function generateSchedules(eventsByGroup:{}, startIndex=0):ScheduleEvent[
     }
 
     schedules = currentGroupEvents.reduce(function(schedules:ScheduleEvent[][],
-                                                   event:ScheduleEvent):any{
+                                                   event:ScheduleEvent):ScheduleEvent[][]{
         let nextSchedules:ScheduleEvent[][] = generateSchedules(eventsByGroup,
                                                                 startIndex+1);
         let schedulesWithCurrentEvent:ScheduleEvent[][] = nextSchedules.map(
@@ -65,9 +65,30 @@ export function generateSchedules(eventsByGroup:{}, startIndex=0):ScheduleEvent[
                 return schedule;
             });
         return schedules.concat(schedulesWithCurrentEvent);
-    }, [])
+    }, []);
     return schedules;
 }
 
+function hasSchedConflict(schedule:ScheduleEvent[]) {
+    let hasConflict:boolean = false;
+    schedule.forEach(function(event1:ScheduleEvent) {
+        schedule.forEach(function(event2:ScheduleEvent) {
+            if (!(event1 === event2)){
+                
+            }
+        })
+    });
+}
+
+export function hasConflict(event1:ScheduleEvent, event2:ScheduleEvent) {
+    let hasConflict:boolean;
+    hasConflict = event1.startTime <= event2.endTime;
+    hasConflict = hasConflict && event1.endTime >= event2.startTime;
+    hasConflict = hasConflict || (
+                    event1.endTime >= event2.startTime && 
+                    event1.startTime<=event2.endTime
+                  );
+    return hasConflict;
+}
 
 console.log(runTests());

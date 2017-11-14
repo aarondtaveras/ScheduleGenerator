@@ -1,5 +1,5 @@
 import {ScheduleEvent} from '../datamodels/schedule-event';
-import {generateDictionary, generateSchedules} from '../schedule-generator';
+import {generateDictionary, generateSchedules, hasConflict} from '../schedule-generator';
 import { TestRunner } from './test-runner';
 import { testScheduleByEventGroupNames, testGenerateSchedulesExpected,
          genTestSchedule} from './test-data';
@@ -33,6 +33,16 @@ function testGeneratePossibleSchedules(){
     return generateSchedules(testDic);
 }
 
+function testHasConflict(){
+    let schedule:ScheduleEvent[] = genTestSchedule();
+    let testOutput:boolean[] = [];
+    testOutput.push(hasConflict(schedule[0], schedule[2]));
+    testOutput.push(hasConflict(schedule[2], schedule[0]));
+    testOutput.push(hasConflict(schedule[1], schedule[7]));
+    testOutput.push(hasConflict(schedule[7], schedule[1]));
+    return testOutput;
+}
+
 export function runTests(){
     let testFuncs = [];
     let expectedOutputs = [];
@@ -46,6 +56,10 @@ export function runTests(){
     //testGeneratePossibilities
     testFuncs.push(testGeneratePossibleSchedules);
     expectedOutputs.push(testGenerateSchedulesExpected);
+
+    //testHasConflict()
+    testFuncs.push(testHasConflict);
+    expectedOutputs.push([true, true, false, false]);
     
     let testOutcomes:boolean[] = TestRunner.runTests(testFuncs, expectedOutputs);
     return testOutcomes;
