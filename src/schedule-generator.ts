@@ -5,8 +5,8 @@ import * as _ from "lodash";
 let testEvents:ScheduleEvent[] = [];
 let testEvents2:ScheduleEvent[] = [];
 let e = new ScheduleEvent(20, 30,false, 'section 310', 'Math course');
-let e3 = new ScheduleEvent(40,50,false,'section 250','Math course');
-let e4 = new ScheduleEvent(10,20,false,'section 290','English course')
+let e3 = new ScheduleEvent(40, 50,false,'section 250','Math course');
+let e4 = new ScheduleEvent(10, 20,false,'section 290','English course')
 let e2 = new ScheduleEvent(30, 30,false, 'section 310', 'Math course');
 testEvents.push(e);
 testEvents2.push(e);
@@ -16,17 +16,6 @@ testEvents.push(e4);
 testEvents2[0].eventName = "happy";
 
 var dictionary = {};
-
-/* utility functions */
-function getPropCounts(dic):number[]{
-    /*  takes object returns array of
-        lengths of properties */
-    let dicKeys:string[] = Object.keys(dic);
-    let dicCounts = dicKeys.map(function(key):number{
-        return dic[key].length;
-    })
-    return dicCounts;
-}
 
 /* schedule specific */
 export function generateDictionary(schedule:ScheduleEvent[]){
@@ -69,17 +58,18 @@ export function generateSchedules(eventsByGroup:{}, startIndex=0):ScheduleEvent[
     return schedules;
 }
 
-export function fltrSchedConflicts(schedule:ScheduleEvent[]) {
+export function schedConflictsFltr(schedule:ScheduleEvent[]) {
+    let noConflicts:boolean = true;
     schedule.forEach(function(event1:ScheduleEvent) {
         schedule.forEach(function(event2:ScheduleEvent) {
             if (!(event1 === event2)){
                 if(hasConflict(event1, event2)){
-                    return true;
+                    noConflicts = false;
                 }
             }
         })
     });
-    return false;
+    return noConflicts;
 }
 
 export function hasConflict(event1:ScheduleEvent, event2:ScheduleEvent):boolean {
@@ -88,7 +78,7 @@ export function hasConflict(event1:ScheduleEvent, event2:ScheduleEvent):boolean 
     hasConflict = hasConflict && event1.endTime >= event2.startTime;
     hasConflict = hasConflict || (
                     event1.endTime >= event2.startTime && 
-                    event1.startTime<=event2.endTime
+                    event1.startTime <= event2.endTime
                   );
     return hasConflict;
 }

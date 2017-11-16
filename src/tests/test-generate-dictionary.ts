@@ -1,5 +1,6 @@
 import {ScheduleEvent} from '../datamodels/schedule-event';
-import {generateDictionary, generateSchedules, hasConflict, fltrSchedConflicts} from '../schedule-generator';
+import {generateDictionary, generateSchedules,
+        hasConflict, schedConflictsFltr} from '../schedule-generator';
 import { TestRunner } from './test-runner';
 import { testScheduleByEventGroupNames, testGenerateSchedulesExpected,
          genTestSchedule} from './test-data';
@@ -43,11 +44,18 @@ function testHasConflict(){
     return testOutput;
 }
 
-function testFltrSchedConflicts(){
-    let schedule:ScheduleEvent[] = genTestSchedule(4);
-    console.log(schedule);
+function testSchedConflictsFltr(){
+    let schedule:ScheduleEvent[] = genTestSchedule(2, 5);
     let testOutput:boolean[] = [];
-    console.log(fltrSchedConflicts(schedule));
+    let schedHasConflicts:boolean[] = []
+    schedHasConflicts.push(schedConflictsFltr(schedule));
+    schedule = genTestSchedule(6,5);
+    schedHasConflicts.push(schedConflictsFltr(schedule));
+    return schedHasConflicts;
+}
+
+function testFiltrConflicts(){
+
 }
 
 export function runTests(){
@@ -69,8 +77,8 @@ export function runTests(){
     expectedOutputs.push([true, true, false, false]);
 
     //testFltrSchedul
-    testFuncs.push(testFltrSchedConflicts);
-    expectedOutputs.push(null);
+    testFuncs.push(testSchedConflictsFltr);
+    expectedOutputs.push([true, false]);
     
     let testOutcomes:boolean[] = TestRunner.runTests(testFuncs, expectedOutputs);
     return testOutcomes;

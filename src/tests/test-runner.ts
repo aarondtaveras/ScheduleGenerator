@@ -16,6 +16,8 @@ export class TestRunner {
             try {
                 testOutput = testFunc();
             } catch (e) {
+                console.log("error running test: "+testFunc.name);
+                console.log(e);
                 return false;
             }
             if (expectedOutput == null) {
