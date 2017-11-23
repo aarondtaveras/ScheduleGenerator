@@ -56,7 +56,7 @@ function singleGroupGenSched(event:ScheduleEvent):ScheduleEvent[] {
 function multiGroupGenSched(schedules:ScheduleEvent[][], event:ScheduleEvent,
                             eventsByGroup:{}, startIndex:number
                            ):ScheduleEvent[][] {
-    /* Inductive step of picking all possible schedules */
+    /* lambda function: Inductive step of picking all possible schedules */
     let nextSchedules:ScheduleEvent[][] = generateSchedules(eventsByGroup, startIndex+1);
     let schedulesWithCurrentEvent:ScheduleEvent[][] = nextSchedules.map(
         function(schedule:ScheduleEvent[]):any{
@@ -65,10 +65,14 @@ function multiGroupGenSched(schedules:ScheduleEvent[][], event:ScheduleEvent,
         });
     return schedules.concat(schedulesWithCurrentEvent);
 }
-/* --- End of Generating All Schedule Combination Functions --- */
+/* --- End of Generating All Schedule Combinations Functions --- */
 
 
 /* --- Start of filtering Schedule Conflicts functions --- */
+export function filtrSchedConflicts(schedules:ScheduleEvent[][]) {
+    return schedules.filter(schedConflictsFltr);
+}
+
 export function schedConflictsFltr(schedule:ScheduleEvent[]) {
     let noConflicts:boolean = true;
     schedule.forEach(function(event1:ScheduleEvent) {
