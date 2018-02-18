@@ -1,5 +1,6 @@
 import {ScheduleEvent} from './datamodels/schedule-event';
-import {runTests} from './tests/test-generate-dictionary'
+//import {runTests} from './tests/test-generate-dictionary';
+import {runTests} from './tests/test-real-scheduler-convert';
 import * as _ from "lodash";
 
 let testEvents:ScheduleEvent[] = [];
@@ -86,6 +87,7 @@ export function schedConflictsFltr(schedule:ScheduleEvent[]) {
     });
     return noConflicts;
 }
+
 
 export function hasConflict(event1:ScheduleEvent, event2:ScheduleEvent):boolean {
     let hasConflict:boolean;

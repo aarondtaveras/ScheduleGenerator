@@ -59,8 +59,20 @@ function testFiltrConflicts(){
     let schedules:ScheduleEvent[][] = [];
     schedules.push(genTestSchedule(2,5));
     schedules.push(genTestSchedule(5,2));
-    return filtrSchedConflicts(schedules);
+    let filtered = filtrSchedConflicts(schedules);
+    return filtered;
 }
+
+function experiment(){
+    let schedule = genTestSchedule();
+    let scheduleDic = generateDictionary(schedule);
+    let allSchedules = generateSchedules(scheduleDic);
+
+    console.log(schedule);
+    console.log(scheduleDic);
+    console.log(allSchedules);
+}
+
 
 export function runTests(){
     let testFuncs = [];
@@ -87,6 +99,8 @@ export function runTests(){
     //testFiltrConflicts
     testFuncs.push(testFiltrConflicts);
     expectedOutputs.push(null);
+
+    //experiment()
     
     let testOutcomes:boolean[] = TestRunner.runTests(testFuncs, expectedOutputs);
     return testOutcomes;
