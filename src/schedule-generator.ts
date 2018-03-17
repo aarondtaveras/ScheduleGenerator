@@ -1,6 +1,7 @@
 import {ScheduleEvent} from './datamodels/schedule-event';
 //import {runTests} from './tests/test-generate-dictionary';
-import {runTests} from './tests/test-real-scheduler-convert';
+//import {runTests} from './tests/test-real-scheduler-convert';
+import {runTests} from './tests/test-week-calendar';
 import * as _ from "lodash";
 
 let testEvents:ScheduleEvent[] = [];

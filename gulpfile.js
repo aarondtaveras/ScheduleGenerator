@@ -5,7 +5,8 @@ var watchify = require("watchify");
 var tsify = require("tsify");
 var gutil = require("gulp-util");
 var paths = {
-    pages: ['src/views/*.html']
+    pages: ['src/views/*.html'],
+    modules: ['node_modules/fullcalendar/dist/fullcalendar.css']
 };
 
 var watchedBrowserify = watchify(browserify({
@@ -16,9 +17,14 @@ var watchedBrowserify = watchify(browserify({
     packageCache: {}
 }).plugin(tsify));
 
-gulp.task("copy-html", function () {
+gulp.task('copy-html', function () {
     return gulp.src(paths.pages)
-        .pipe(gulp.dest("dist"));
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('copy-module-dependencies', function(){
+    return gulp.src(paths.modules)
+               .pipe(gulp.dest('dist/css'));
 });
 
 function bundle() {
@@ -28,6 +34,6 @@ function bundle() {
         .pipe(gulp.dest("dist"));
 }
 
-gulp.task("default", ["copy-html"], bundle);
+gulp.task("default", ["copy-html", 'copy-module-dependencies'], bundle);
 watchedBrowserify.on("update", bundle);
 watchedBrowserify.on("log", gutil.log);
